@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xmn-gE-gYF">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -425,6 +425,69 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rhz-aG-WnP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3193" y="-563"/>
+        </scene>
+        <!--Hamburger View Controller-->
+        <scene sceneID="m93-b7-ibn">
+            <objects>
+                <viewController storyboardIdentifier="hamburgerViewController" id="xmn-gE-gYF" customClass="HamburgerViewController" customModule="Tweety" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tXl-tG-pun">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2MX-3k-24E" userLabel="Menu View">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HDp-c2-35u" userLabel="Content View">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="1iP-zJ-hAp" appends="YES" id="88O-JG-rGP"/>
+                                </connections>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="2MX-3k-24E" secondAttribute="trailing" id="2oj-LD-GcC"/>
+                            <constraint firstAttribute="bottom" secondItem="HDp-c2-35u" secondAttribute="bottom" id="IDu-ed-VUi"/>
+                            <constraint firstItem="2MX-3k-24E" firstAttribute="top" secondItem="tXl-tG-pun" secondAttribute="top" id="Jym-FG-CeW"/>
+                            <constraint firstItem="HDp-c2-35u" firstAttribute="top" secondItem="tXl-tG-pun" secondAttribute="top" id="Mvt-NL-3Ff"/>
+                            <constraint firstItem="HDp-c2-35u" firstAttribute="leading" secondItem="tXl-tG-pun" secondAttribute="leading" id="PK1-pj-k9A"/>
+                            <constraint firstAttribute="bottom" secondItem="2MX-3k-24E" secondAttribute="bottom" id="cuC-9c-cpm"/>
+                            <constraint firstItem="HDp-c2-35u" firstAttribute="width" secondItem="tXl-tG-pun" secondAttribute="width" id="quu-dt-SaY"/>
+                            <constraint firstItem="2MX-3k-24E" firstAttribute="leading" secondItem="tXl-tG-pun" secondAttribute="leading" id="tfs-2u-yBM"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ynh-i4-V7S"/>
+                    </view>
+                    <connections>
+                        <outlet property="contentView" destination="HDp-c2-35u" id="JRL-rB-DNU"/>
+                        <outlet property="contentViewLeadingConstraint" destination="PK1-pj-k9A" id="GH3-T9-AJM"/>
+                        <outlet property="menuView" destination="2MX-3k-24E" id="d3R-Ax-bHt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qMk-Jl-4sS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="1iP-zJ-hAp">
+                    <connections>
+                        <action selector="onPan:" destination="xmn-gE-gYF" id="XOY-nh-l3B"/>
+                    </connections>
+                </panGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="514.39999999999998" y="-787.55622188905556"/>
+        </scene>
+        <!--Menu View Controller-->
+        <scene sceneID="35P-LE-Pcm">
+            <objects>
+                <viewController storyboardIdentifier="menuViewController" id="jLv-bp-Q8i" customClass="MenuViewController" customModule="Tweety" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="PSa-0J-Dtz">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.11466940489999999" green="0.63288915160000003" blue="0.95280116800000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="MR4-Dp-Uv8"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xhj-x6-HJw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1314" y="-791"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Kke-lI-Bau">

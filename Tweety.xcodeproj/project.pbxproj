@@ -20,6 +20,8 @@
 		8BB3D18E1F7B3ACB00121A4D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BB3D18C1F7B3ACB00121A4D /* Main.storyboard */; };
 		8BB3D1901F7B3ACB00121A4D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BB3D18F1F7B3ACB00121A4D /* Assets.xcassets */; };
 		8BB3D1931F7B3ACB00121A4D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BB3D1911F7B3ACB00121A4D /* LaunchScreen.storyboard */; };
+		8BF781331F84ABBF00B4A68C /* HamburgerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF781321F84ABBF00B4A68C /* HamburgerViewController.swift */; };
+		8BF781351F84B27400B4A68C /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF781341F84B27400B4A68C /* MenuViewController.swift */; };
 		8BFE71101F81A74300C20347 /* ComposeTweetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BFE710F1F81A74300C20347 /* ComposeTweetController.swift */; };
 		8BFE71121F81B22300C20347 /* TweetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BFE71111F81B22300C20347 /* TweetDetailViewController.swift */; };
 		8BFE71141F81D6A400C20347 /* ReplyTweetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BFE71131F81D6A400C20347 /* ReplyTweetViewController.swift */; };
@@ -43,6 +45,8 @@
 		8BB3D18F1F7B3ACB00121A4D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8BB3D1921F7B3ACB00121A4D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8BB3D1941F7B3ACB00121A4D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8BF781321F84ABBF00B4A68C /* HamburgerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HamburgerViewController.swift; sourceTree = "<group>"; };
+		8BF781341F84B27400B4A68C /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		8BFE710F1F81A74300C20347 /* ComposeTweetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeTweetController.swift; sourceTree = "<group>"; };
 		8BFE71111F81B22300C20347 /* TweetDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetDetailViewController.swift; sourceTree = "<group>"; };
 		8BFE71131F81D6A400C20347 /* ReplyTweetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplyTweetViewController.swift; sourceTree = "<group>"; };
@@ -85,6 +89,8 @@
 				8BFE710F1F81A74300C20347 /* ComposeTweetController.swift */,
 				8BFE71111F81B22300C20347 /* TweetDetailViewController.swift */,
 				8BFE71131F81D6A400C20347 /* ReplyTweetViewController.swift */,
+				8BF781321F84ABBF00B4A68C /* HamburgerViewController.swift */,
+				8BF781341F84B27400B4A68C /* MenuViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -292,12 +298,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8BF781331F84ABBF00B4A68C /* HamburgerViewController.swift in Sources */,
 				8B058CEB1F7B635000F5117D /* TwitterApi.swift in Sources */,
 				8B32D32A1F7F7AEA00D52E9E /* TweetCell.swift in Sources */,
 				8B058CE81F7B629F00F5117D /* LoginViewController.swift in Sources */,
 				8B058D171F7CE00700F5117D /* Tweet.swift in Sources */,
 				8B3F5F051F7F2B9F0088C798 /* TweetsViewController.swift in Sources */,
 				8B32D32E1F818ED200D52E9E /* Date+Compare.swift in Sources */,
+				8BF781351F84B27400B4A68C /* MenuViewController.swift in Sources */,
 				8BFE71101F81A74300C20347 /* ComposeTweetController.swift in Sources */,
 				8B058D151F7CDFFB00F5117D /* User.swift in Sources */,
 				8BB3D1891F7B3ACB00121A4D /* AppDelegate.swift in Sources */,
