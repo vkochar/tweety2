@@ -8,11 +8,15 @@
 
 import UIKit
 
-class HamburgerViewController: UIViewController {
+class HamburgerViewController: UIViewController, MenuViewControllerDelegate {
     
     @IBOutlet weak var menuView: UIView!
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var contentViewLeadingConstraint: NSLayoutConstraint!
+    
+    var timelineViewController: TweetListViewController!
+    var profileViewController:TweetListViewController!
+    var mentionsViewController: TweetListViewController!
     
     var originalLeadingConstraint: CGFloat!
     
@@ -39,13 +43,35 @@ class HamburgerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        timelineViewController = TweetListViewController()
+        profileViewController = TweetListViewController()
+        mentionsViewController = TweetListViewController()
+        
+        activeVC = timelineViewController
+        
+    }
+    
+    func menuViewController(_ menuViewContrller: MenuViewController, didTapNavigationItem item: NavItem) {
+        switch item {
+        case .PROFILE:
+            activeVC = profileViewController
+        case .TIMELINE:
+            activeVC = timelineViewController
+        case .MENTIONS:
+            activeVC = mentionsViewController
+        }
     }
     
     func removeInactiveVC(inactiveVC:UIViewController? ) {
         inactiveVC?.willMove(toParentViewController: nil)
         inactiveVC?.view.removeFromSuperview()
         inactiveVC?.removeFromParentViewController()
-        inactiveVC?.didMove(toParentViewController: nil)
+    }
+    
+    @IBAction func onLogout(_ sender: Any) {
+        TwitterApi.sharedInstance.logout()
+        NotificationCenter.default.post(name: logoutNotification, object: nil)
     }
     
     func updateActiveVC() {

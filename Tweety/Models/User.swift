@@ -14,12 +14,14 @@ class User: Codable {
     var screenname: String?
     var profileUrl: URL?
     var tagline: String?
+    var profileBackgroundUrl: URL?
     
     enum CodingKeys: String, CodingKey {
         case name
         case screenname = "screen_name"
         case profileUrl = "profile_image_url_https"
         case tagline = "description"
+        case profileBackgroundUrl = "profile_background_image_url_https"
     }
     
     class func fromJSON(response: Any)-> User {
@@ -32,7 +34,8 @@ class User: Codable {
         return user
     }
     
-    static var _currentUser: User?
+    // use a computed property
+    private static var _currentUser: User?
     class var currentUser: User? {
         get {
             if (_currentUser == nil) {

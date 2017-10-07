@@ -1,16 +1,19 @@
 //
-//  TweetsViewController.swift
+//  TweetListViewController.swift
 //  Tweety
 //
-//  Created by Varun on 9/29/17.
+//  Created by Varun on 10/5/17.
 //  Copyright © 2017 Varun. All rights reserved.
 //
 
 import UIKit
 import MBProgressHUD
 
-class TimelineViewController: UIViewController {
+let reloadHomeTimeline = Notification.Name("reloadHomeTimeline")
+let newTweet = Notification.Name("newTweet")
 
+class TweetListViewController: UIViewController {
+    
     @IBOutlet weak var tableView: UITableView!
     var refreshControl: UIRefreshControl!
     var tweets:[Tweet] = []
@@ -48,7 +51,7 @@ class TimelineViewController: UIViewController {
         }
     }
     
-    private func loadTweets() {
+    func loadTweets() {
         TwitterApi.sharedInstance.homeTimeline(nil, sucess: { (tweets) in
             self.tweets = tweets
             self.tableView.reloadData()
@@ -74,34 +77,22 @@ class TimelineViewController: UIViewController {
     @objc func didPullToRefresh(_ refreshControl: UIRefreshControl) {
         loadTweets()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    //override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        if segue.identifier == "tweetDetailSegue" {
-            let vc = segue.destination as! TweetDetailViewController
-            let tweetCell = sender as! TweetCell
-            let row = tableView.indexPath(for: tweetCell)!.row
-            vc.tweet = tweets[row]
-        } else if segue.identifier == "replySegue" {
-            let navigationController = segue.destination as! UINavigationController
-            let vc = navigationController.topViewController as! ReplyTweetViewController
-            let tweetCell = sender as! TweetCell
-            let row = tableView.indexPath(for: tweetCell)!.row
-            vc.tweet = tweets[row]
-        }
-    }
+    //}
 }
 
-extension TimelineViewController: TweetCellDelegate {
+extension TweetListViewController: TweetCellDelegate {
     func tweetCell(_ tweetCell: TweetCell, didTapFavorite tweet: Tweet) {
         MBProgressHUD.showAdded(to: view, animated: true)
         if (tweet.isFavorite) {
@@ -124,7 +115,8 @@ extension TimelineViewController: TweetCellDelegate {
     }
     
     func tweetCell(_ tweetCell: TweetCell, didTapReply tweet: Tweet) {
-        performSegue(withIdentifier: "replySegue", sender: tweetCell)
+        let indexPath = tableView.indexPath(for: tweetCell)
+        openReplyTweet(tweet: tweets[indexPath!.row])
     }
     
     func tweetCell(_ tweetCell: TweetCell, didTapRetweet tweet: Tweet) {
@@ -159,9 +151,24 @@ extension TimelineViewController: TweetCellDelegate {
         tweet.retweetCount = retweets
         tweet.retweeted = !tweet.retweeted
     }
+    
+    private func openTweetDetails(tweet: Tweet) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let tweetDetailViewController = storyboard.instantiateViewController(withIdentifier: "tweetDetailViewController") as! TweetDetailViewController
+        tweetDetailViewController.tweet = tweet
+        self.navigationController?.pushViewController(tweetDetailViewController, animated: true)
+    }
+    
+    private func openReplyTweet(tweet: Tweet) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let replyTweetNavigationController = storyboard.instantiateViewController(withIdentifier: "replyTweetNavigationController") as! UINavigationController
+        let replyTweetController = replyTweetNavigationController.topViewController as! ReplyTweetViewController
+        replyTweetController.tweet = tweet
+        present(replyTweetNavigationController, animated: true, completion: nil)
+    }
 }
 
-extension TimelineViewController: UITableViewDelegate, UITableViewDataSource {
+extension TweetListViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -172,7 +179,7 @@ extension TimelineViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        performSegue(withIdentifier: "tweetDetailSegue", sender: tableView.cellForRow(at: indexPath))
+        openTweetDetails(tweet: tweets[indexPath.row])
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -189,3 +196,4 @@ extension TimelineViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
 }
+

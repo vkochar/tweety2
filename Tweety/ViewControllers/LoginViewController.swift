@@ -18,7 +18,16 @@ class LoginViewController: UIViewController {
     @IBAction func onLoginButton(_ sender: Any) {
         TwitterApi.sharedInstance.login(success: {
             print("Logged in")
-            self.performSegue(withIdentifier: "loginSegue", sender: self)
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let hamburgerNavigationController = storyboard.instantiateViewController(withIdentifier: "hamburgerNavigationController") as! UINavigationController
+            let hamburgerViewController = hamburgerNavigationController.topViewController as! HamburgerViewController
+            let menuViewController = storyboard.instantiateViewController(withIdentifier: "menuViewController") as! MenuViewController
+            menuViewController.delegate = hamburgerViewController
+            hamburgerViewController.menuViewController = menuViewController
+            
+            self.present(hamburgerNavigationController, animated: true, completion: nil)
+            
         }) { (error) in
             print(error.localizedDescription)
         }
