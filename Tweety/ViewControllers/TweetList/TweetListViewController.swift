@@ -20,6 +20,14 @@ class TweetListViewController: UIViewController {
     
     var isLoading = false
     
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    init() {
+        super.init(nibName: "TweetListViewController", bundle: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -52,26 +60,11 @@ class TweetListViewController: UIViewController {
     }
     
     func loadTweets() {
-        TwitterApi.sharedInstance.homeTimeline(nil, sucess: { (tweets) in
-            self.tweets = tweets
-            self.tableView.reloadData()
-            self.refreshControl.endRefreshing()
-            MBProgressHUD.hide(for: self.view, animated: true)
-        }) { (error: Error!) in
-            print("\\m/")
-        }
+        assert(false, "Please override TweetListController.loadTweets()")
     }
     
-    private func loadPage(maxId: String) {
-        TwitterApi.sharedInstance.homeTimeline(maxId, sucess: { (tweets) in
-            self.tweets.append(contentsOf: tweets)
-            self.tableView.reloadData()
-            self.refreshControl.endRefreshing()
-            MBProgressHUD.hide(for: self.view, animated: true)
-            self.isLoading = false
-        }) { (error: Error!) in
-            print("\\m/")
-        }
+    func loadPage(maxId: String) {
+        assert(false, "Please override TweetListController.loadPage()")
     }
     
     @objc func didPullToRefresh(_ refreshControl: UIRefreshControl) {

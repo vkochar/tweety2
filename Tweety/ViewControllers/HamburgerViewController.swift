@@ -14,9 +14,9 @@ class HamburgerViewController: UIViewController, MenuViewControllerDelegate {
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var contentViewLeadingConstraint: NSLayoutConstraint!
     
-    var timelineViewController: TweetListViewController!
-    var profileViewController:TweetListViewController!
-    var mentionsViewController: TweetListViewController!
+    var timelineViewController: TimelineViewController!
+    var profileViewController:TimelineViewController!
+    var mentionsViewController: TimelineViewController!
     
     var originalLeadingConstraint: CGFloat!
     
@@ -44,12 +44,17 @@ class HamburgerViewController: UIViewController, MenuViewControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        timelineViewController = TweetListViewController()
-        profileViewController = TweetListViewController()
-        mentionsViewController = TweetListViewController()
+        timelineViewController = TimelineViewController()
+        profileViewController = TimelineViewController()
+        mentionsViewController = TimelineViewController()
         
         activeVC = timelineViewController
         
+    }
+    
+    @IBAction func didTapLogout(_ sender: Any) {
+        TwitterApi.sharedInstance.logout()
+        NotificationCenter.default.post(name: logoutNotification, object: nil)
     }
     
     func menuViewController(_ menuViewContrller: MenuViewController, didTapNavigationItem item: NavItem) {
@@ -85,6 +90,8 @@ class HamburgerViewController: UIViewController, MenuViewControllerDelegate {
             activeViewController.view.frame = contentView.bounds
             // 4. Call the didMoveToParentViewController: method of the child view controller.
             activeViewController.didMove(toParentViewController: self)
+            
+            self.title = activeViewController.title
         }
     }
    

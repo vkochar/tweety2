@@ -410,7 +410,18 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ynh-i4-V7S"/>
                     </view>
-                    <navigationItem key="navigationItem" id="A9I-wQ-peW"/>
+                    <navigationItem key="navigationItem" id="A9I-wQ-peW">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="CgK-6C-yqX">
+                            <connections>
+                                <action selector="didTapLogout:" destination="xmn-gE-gYF" id="T0I-h7-Q1X"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="New" id="OtZ-S1-CKl">
+                            <connections>
+                                <segue destination="tfc-fa-3XJ" kind="presentation" id="Cii-FV-Obt"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="contentView" destination="HDp-c2-35u" id="JRL-rB-DNU"/>
                         <outlet property="contentViewLeadingConstraint" destination="PK1-pj-k9A" id="GH3-T9-AJM"/>
@@ -631,6 +642,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="RMK-hK-CCM">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="barTintColor" red="0.11466940489999999" green="0.63288915160000003" blue="0.95280116800000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

@@ -7,13 +7,37 @@
 //
 
 import UIKit
+import MBProgressHUD
 
-class TimelineViewController: UIViewController {
-
+class TimelineViewController: TweetListViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        title = "Timeline"
         // Do any additional setup after loading the view.
+    }
+    
+    override func loadTweets() {
+        TwitterApi.sharedInstance.homeTimeline(nil, sucess: { (tweets) in
+            self.tweets = tweets
+            self.tableView.reloadData()
+            self.refreshControl.endRefreshing()
+            MBProgressHUD.hide(for: self.view, animated: true)
+        }) { (error: Error!) in
+            print("\\m/")
+        }
+    }
+    
+    override func loadPage(maxId: String) {
+        TwitterApi.sharedInstance.homeTimeline(maxId, sucess: { (tweets) in
+            self.tweets.append(contentsOf: tweets)
+            self.tableView.reloadData()
+            self.refreshControl.endRefreshing()
+            MBProgressHUD.hide(for: self.view, animated: true)
+            self.isLoading = false
+        }) { (error: Error!) in
+            print("\\m/")
+        }
     }
 
     override func didReceiveMemoryWarning() {
