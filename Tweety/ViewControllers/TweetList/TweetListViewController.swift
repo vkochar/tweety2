@@ -19,6 +19,7 @@ class TweetListViewController: UIViewController {
     var tweets:[Tweet] = []
     
     var isLoading = false
+    var canLoadMore = true
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -181,7 +182,7 @@ extension TweetListViewController: UITableViewDelegate, UITableViewDataSource {
         cell.tweet = tweet
         cell.delegate = self
         
-        if ((indexPath.row >= tweets.count - 1) && !isLoading) {
+        if ((indexPath.row >= tweets.count - 1) && !isLoading && canLoadMore) {
             isLoading = true
             loadPage(maxId: tweet.tweetId!)
         }

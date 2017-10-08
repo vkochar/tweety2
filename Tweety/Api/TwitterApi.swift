@@ -16,6 +16,8 @@ private let accessTokenPath = "oauth/access_token"
 
 private let userPath = "1.1/account/verify_credentials.json"
 private let homeTimelinePath = "1.1/statuses/home_timeline.json"
+private let userTimelinePath = "1.1/statuses/user_timeline.json"
+private let mentionsTimelinePath = "1.1/statuses/mentions_timeline.json"
 private let updatePath = "1.1/statuses/update.json"
 private let retweetPath = "1.1/statuses/retweet"
 private let unRetweetPath = "1.1/statuses/unretweet"
@@ -81,14 +83,27 @@ class TwitterApi: BDBOAuth1SessionManager {
     }
     
     func homeTimeline(_ maxId: String?, sucess: @escaping ([Tweet]) -> Void, failure: @escaping (Error) -> Void) {
+        timeline(homeTimelinePath, maxId: maxId, sucess: sucess, failure: failure)
+    }
+    
+    func userTimeline(_ maxId: String?, sucess: @escaping ([Tweet]) -> Void, failure: @escaping (Error) -> Void) {
+        timeline(userTimelinePath, maxId: maxId, sucess: sucess, failure: failure)
+    }
+    
+    func mentionsTimeline(_ maxId: String?, sucess: @escaping ([Tweet]) -> Void, failure: @escaping (Error) -> Void) {
+        timeline(mentionsTimelinePath, maxId: maxId, sucess: sucess, failure: failure)
+    }
+    
+    private func timeline(_ path: String, maxId: String?, sucess: @escaping ([Tweet]) -> Void, failure: @escaping (Error) -> Void) {
         var params: [String:String] = [:]
         if maxId != nil {
             params["max_id"] = maxId
         }
-        get(homeTimelinePath, parameters: nil, progress: nil, success: { (task, resposne) in
+        print("Requesting: \(path)")
+        get(path, parameters: params, progress: nil, success: { (task, resposne) in
             let dictionaries = resposne as! [NSDictionary]
             var tweets:[Tweet] = []
-            print("got tweets")
+            print("Got tweets for \(path)")
             dictionaries.forEach{ dictionary in
                 let tweet = Tweet.fromJSON(response: dictionary)
                 tweets.append(tweet)

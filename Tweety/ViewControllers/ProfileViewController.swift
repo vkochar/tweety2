@@ -1,24 +1,24 @@
 //
-//  TimelineViewController.swift
+//  ProfileViewController.swift
 //  Tweety
 //
-//  Created by Varun on 10/7/17.
+//  Created by Varun on 10/8/17.
 //  Copyright © 2017 Varun. All rights reserved.
 //
 
 import UIKit
 import MBProgressHUD
 
-class TimelineViewController: TweetListViewController {
-    
+class ProfileViewController: TweetListViewController {
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Timeline"
+        title = "Profile"
         // Do any additional setup after loading the view.
     }
     
     override func loadTweets() {
-        TwitterApi.sharedInstance.homeTimeline(nil, sucess: { (tweets) in
+        TwitterApi.sharedInstance.userTimeline(nil, sucess: { (tweets) in
             self.tweets = tweets
             self.tableView.reloadData()
             self.refreshControl.endRefreshing()
@@ -29,7 +29,7 @@ class TimelineViewController: TweetListViewController {
     }
     
     override func loadPage(maxId: String) {
-        TwitterApi.sharedInstance.homeTimeline(maxId, sucess: { (tweets) in
+        TwitterApi.sharedInstance.userTimeline(maxId, sucess: { (tweets) in
             self.tweets.append(contentsOf: tweets)
             self.tableView.reloadData()
             self.refreshControl.endRefreshing()

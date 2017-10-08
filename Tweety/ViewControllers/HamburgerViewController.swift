@@ -15,8 +15,8 @@ class HamburgerViewController: UIViewController, MenuViewControllerDelegate {
     @IBOutlet weak var contentViewLeadingConstraint: NSLayoutConstraint!
     
     var timelineViewController: TimelineViewController!
-    var profileViewController:TimelineViewController!
-    var mentionsViewController: TimelineViewController!
+    var profileViewController:ProfileViewController!
+    var mentionsViewController: MentionsViewController!
     
     var originalLeadingConstraint: CGFloat!
     
@@ -45,8 +45,8 @@ class HamburgerViewController: UIViewController, MenuViewControllerDelegate {
         super.viewDidLoad()
         
         timelineViewController = TimelineViewController()
-        profileViewController = TimelineViewController()
-        mentionsViewController = TimelineViewController()
+        profileViewController = ProfileViewController()
+        mentionsViewController = MentionsViewController()
         
         activeVC = timelineViewController
         
