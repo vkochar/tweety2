@@ -13,7 +13,7 @@ class MentionsViewController: TweetListViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        title = "Mentions"
         // Do any additional setup after loading the view.
     }
 
