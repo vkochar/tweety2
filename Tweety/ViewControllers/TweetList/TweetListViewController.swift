@@ -87,6 +87,12 @@ class TweetListViewController: UIViewController {
 }
 
 extension TweetListViewController: TweetCellDelegate {
+    
+    func tweetCell(_ tweetCell: TweetCell, didTapProfileImage tweet: Tweet) {
+        let profileViewController = ProfileViewController(tweet.user!)
+        self.navigationController?.pushViewController(profileViewController, animated: true)
+    }
+    
     func tweetCell(_ tweetCell: TweetCell, didTapFavorite tweet: Tweet) {
         MBProgressHUD.showAdded(to: view, animated: true)
         if (tweet.isFavorite) {

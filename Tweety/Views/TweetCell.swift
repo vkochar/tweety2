@@ -13,7 +13,7 @@ protocol TweetCellDelegate: NSObjectProtocol {
     func tweetCell(_ tweetCell: TweetCell, didTapFavorite tweet: Tweet)
     func tweetCell(_ tweetCell: TweetCell, didTapReply tweet: Tweet)
     func tweetCell(_ tweetCell: TweetCell, didTapRetweet tweet: Tweet)
-    // func tweetCell(_ tweetCell: TweetCell, didTapProfileImage tweet: Tweet)
+    func tweetCell(_ tweetCell: TweetCell, didTapProfileImage tweet: Tweet)
 }
 
 class TweetCell: UITableViewCell {
@@ -60,6 +60,13 @@ class TweetCell: UITableViewCell {
         favoriteButton.setImage(#imageLiteral(resourceName: "favorite_selected"), for: UIControlState.selected)
         retweetButton.setImage(#imageLiteral(resourceName: "retweet"), for: UIControlState.normal)
         retweetButton.setImage(#imageLiteral(resourceName: "retweet_selected"), for: UIControlState.selected)
+        
+        let tapGestureRecoginzer = UITapGestureRecognizer(target: self, action: #selector(onTapProfileImage(_:)))
+        profileImage.addGestureRecognizer(tapGestureRecoginzer)
+    }
+    
+    @objc func onTapProfileImage(_ tapGestureRecognzer: UITapGestureRecognizer) {
+        delegate?.tweetCell(self, didTapProfileImage: tweet)
     }
     
     @IBAction func onReplyButton(_ sender: UIButton) {
