@@ -34,6 +34,23 @@ class ProfileViewController: TweetListViewController {
         }
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if let headerView = tableView.tableHeaderView {
+            
+            let height = headerView.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height
+            var headerFrame = headerView.frame
+            
+            //Comparison necessary to avoid infinite loop
+            if height != headerFrame.size.height {
+                headerFrame.size.height = height
+                headerView.frame = headerFrame
+                tableView.tableHeaderView = headerView
+            }
+        }
+    }
+    
     override func loadTweets() {
         TwitterApi.sharedInstance.userTimeline(user!.screenname!, maxId: nil, sucess: { (tweets) in
             self.tweets = tweets
@@ -63,6 +80,9 @@ class ProfileViewController: TweetListViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func tweetCell(_ tweetCell: TweetCell, didTapProfileImage tweet: Tweet) {
+        
+    }
 
     /*
     // MARK: - Navigation

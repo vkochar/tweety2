@@ -12,7 +12,7 @@ import MBProgressHUD
 let reloadHomeTimeline = Notification.Name("reloadHomeTimeline")
 let newTweet = Notification.Name("newTweet")
 
-class TweetListViewController: UIViewController {
+class TweetListViewController: UIViewController, TweetCellDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     var refreshControl: UIRefreshControl!
@@ -84,9 +84,6 @@ class TweetListViewController: UIViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     //}
-}
-
-extension TweetListViewController: TweetCellDelegate {
     
     func tweetCell(_ tweetCell: TweetCell, didTapProfileImage tweet: Tweet) {
         let profileViewController = ProfileViewController(tweet.user!)

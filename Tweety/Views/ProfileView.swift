@@ -25,7 +25,6 @@ class ProfileView: UIView {
         view.frame = self.bounds
         
         // dont know why this doesn't work
-        profileImageView.layer.cornerRadius = profileImageView.bounds.width / 2
     }
     
     func set(user: User) {
