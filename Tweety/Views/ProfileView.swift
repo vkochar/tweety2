@@ -34,7 +34,15 @@ class ProfileView: UIView {
         handleLabel.text = "@\(user.screenname!)"
         
         if let profileBackgroundImageUrl = user.profileBackgroundUrl {
-            profileBackgroundImageView.setImageWith(profileBackgroundImageUrl)
+            //profileBackgroundImageView.setImageWith(profileBackgroundImageUrl)
+            profileBackgroundImageView.setImageWith(URLRequest(url: profileBackgroundImageUrl), placeholderImage: nil, success: { (request, response, uiImage) in
+                self.profileBackgroundImageView.image = uiImage
+                let colors = uiImage.getColors(scaleDownSize: CGSize(width: 20, height: 20))
+                self.nameLabel.textColor = colors.background.inverted
+                self.handleLabel.textColor = colors.detail.inverted
+            }, failure: { (request, response, error) in
+                
+            })
         }
         
         if let profieImageUrl = user.profileUrl {
