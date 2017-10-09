@@ -23,6 +23,7 @@ private let retweetPath = "1.1/statuses/retweet"
 private let unRetweetPath = "1.1/statuses/unretweet"
 private let createFavoritePath = "1.1/favorites/create.json"
 private let removeFavoritePath = "1.1/favorites/destroy.json"
+private let userProfilePath = "1.1/users/show.json"
 
 import Foundation
 import BDBOAuth1Manager
@@ -82,23 +83,45 @@ class TwitterApi: BDBOAuth1SessionManager {
         })
     }
     
-    func homeTimeline(_ maxId: String?, sucess: @escaping ([Tweet]) -> Void, failure: @escaping (Error) -> Void) {
-        timeline(homeTimelinePath, maxId: maxId, sucess: sucess, failure: failure)
+    func getUserProfile(screenName: String, success: @escaping (User) -> Void, failure: @escaping (Error) -> Void) {
+        let params = ["screen_name": screenName]
+        get(userProfilePath, parameters: params, progress: nil, success: { (task, response) in
+            let user = User.fromJSON(response: response!)
+            success(user)
+        }){ (task, error:Error!) in
+            print(error.localizedDescription)
+            failure(error)
+        }
     }
     
-    func userTimeline(_ maxId: String?, sucess: @escaping ([Tweet]) -> Void, failure: @escaping (Error) -> Void) {
-        timeline(userTimelinePath, maxId: maxId, sucess: sucess, failure: failure)
+    func homeTimeline(_ maxId: String?, sucess: @escaping ([Tweet]) -> Void, failure: @escaping (Error) -> Void) {
+        var params: [String:String] = [:]
+        if (maxId != nil) {
+            params["max_id"] = maxId
+        }
+        timeline(homeTimelinePath, params:  params, sucess: sucess, failure: failure)
     }
     
     func mentionsTimeline(_ maxId: String?, sucess: @escaping ([Tweet]) -> Void, failure: @escaping (Error) -> Void) {
-        timeline(mentionsTimelinePath, maxId: maxId, sucess: sucess, failure: failure)
-    }
-    
-    private func timeline(_ path: String, maxId: String?, sucess: @escaping ([Tweet]) -> Void, failure: @escaping (Error) -> Void) {
         var params: [String:String] = [:]
-        if maxId != nil {
+        if (maxId != nil) {
             params["max_id"] = maxId
         }
+        timeline(mentionsTimelinePath, params:  params, sucess: sucess, failure: failure)
+    }
+    
+    func userTimeline(_ screenName: String?, maxId: String?, sucess: @escaping ([Tweet]) -> Void, failure: @escaping (Error) -> Void) {
+        var params: [String:String] = [:]
+        if (maxId != nil) {
+            params["max_id"] = maxId
+        }
+        if (screenName != nil) {
+            params["screen_name"] = screenName
+        }
+        timeline(userTimelinePath, params:  params, sucess: sucess, failure: failure)
+    }
+    
+    private func timeline(_ path: String, params: [String:String?], sucess: @escaping ([Tweet]) -> Void, failure: @escaping (Error) -> Void) {
         print("Requesting: \(path)")
         get(path, parameters: params, progress: nil, success: { (task, resposne) in
             let dictionaries = resposne as! [NSDictionary]

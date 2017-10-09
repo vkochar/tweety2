@@ -45,7 +45,7 @@ class HamburgerViewController: UIViewController, MenuViewControllerDelegate {
         super.viewDidLoad()
         
         timelineViewController = TimelineViewController()
-        profileViewController = ProfileViewController()
+        profileViewController = ProfileViewController(User.currentUser!)
         mentionsViewController = MentionsViewController()
         
         activeVC = timelineViewController

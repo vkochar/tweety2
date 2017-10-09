@@ -13,6 +13,7 @@ protocol TweetCellDelegate: NSObjectProtocol {
     func tweetCell(_ tweetCell: TweetCell, didTapFavorite tweet: Tweet)
     func tweetCell(_ tweetCell: TweetCell, didTapReply tweet: Tweet)
     func tweetCell(_ tweetCell: TweetCell, didTapRetweet tweet: Tweet)
+    // func tweetCell(_ tweetCell: TweetCell, didTapProfileImage tweet: Tweet)
 }
 
 class TweetCell: UITableViewCell {

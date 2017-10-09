@@ -11,14 +11,31 @@ import MBProgressHUD
 
 class ProfileViewController: TweetListViewController {
 
+    var user: User?
+    
+    convenience init(_ user: User) {
+        self.init()
+        self.user = user
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Profile"
         // Do any additional setup after loading the view.
+        let headerView = ProfileView()
+        headerView.loadFromXib()
+        
+        TwitterApi.sharedInstance.getUserProfile(screenName: user!.screenname!, success: { (user) in
+            headerView.set(user: user)
+            self.tableView.tableHeaderView = headerView
+            self.tableView.reloadData()
+        }) { (error) in
+            print("\\m/")
+        }
     }
     
     override func loadTweets() {
-        TwitterApi.sharedInstance.userTimeline(nil, sucess: { (tweets) in
+        TwitterApi.sharedInstance.userTimeline(nil, maxId: nil, sucess: { (tweets) in
             self.tweets = tweets
             self.tableView.reloadData()
             self.refreshControl.endRefreshing()
@@ -29,7 +46,7 @@ class ProfileViewController: TweetListViewController {
     }
     
     override func loadPage(maxId: String) {
-        TwitterApi.sharedInstance.userTimeline(maxId, sucess: { (tweets) in
+        TwitterApi.sharedInstance.userTimeline(nil, maxId: maxId, sucess: { (tweets) in
             self.tweets.append(contentsOf: tweets)
             self.tableView.reloadData()
             self.refreshControl.endRefreshing()

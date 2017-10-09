@@ -15,6 +15,9 @@ class User: Codable {
     var profileUrl: URL?
     var tagline: String?
     var profileBackgroundUrl: URL?
+    var followersCount: Int?
+    var followingCount: Int?
+    var tweetsCount: Int?
     
     enum CodingKeys: String, CodingKey {
         case name
@@ -22,6 +25,9 @@ class User: Codable {
         case profileUrl = "profile_image_url_https"
         case tagline = "description"
         case profileBackgroundUrl = "profile_background_image_url_https"
+        case followersCount = "followers_count"
+        case followingCount = "friends_count"
+        case tweetsCount = "statuses_count"
     }
     
     class func fromJSON(response: Any)-> User {
