@@ -35,7 +35,7 @@ class ProfileViewController: TweetListViewController {
     }
     
     override func loadTweets() {
-        TwitterApi.sharedInstance.userTimeline(nil, maxId: nil, sucess: { (tweets) in
+        TwitterApi.sharedInstance.userTimeline(user!.screenname!, maxId: nil, sucess: { (tweets) in
             self.tweets = tweets
             self.tableView.reloadData()
             self.refreshControl.endRefreshing()
@@ -46,7 +46,7 @@ class ProfileViewController: TweetListViewController {
     }
     
     override func loadPage(maxId: String) {
-        TwitterApi.sharedInstance.userTimeline(nil, maxId: maxId, sucess: { (tweets) in
+        TwitterApi.sharedInstance.userTimeline(user!.screenname!, maxId: maxId, sucess: { (tweets) in
             self.tweets.append(contentsOf: tweets)
             self.tableView.reloadData()
             self.refreshControl.endRefreshing()
